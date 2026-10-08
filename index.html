@@ -403,27 +403,35 @@
     *, *::before, *::after { animation: none !important; transition: none !important; }
     html { scroll-behavior: auto; }
   }
+
+  /* Баннер согласия на cookie */
+  [hidden] { display: none !important; }
+  .cookie-banner {
+    position: fixed; z-index: 20; left: 50%; bottom: 20px; transform: translateX(-50%);
+    width: min(720px, calc(100% - 24px));
+    display: flex; align-items: center; gap: 18px 24px; flex-wrap: wrap;
+    padding: 18px 22px; border-radius: 14px;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); box-shadow: 0 18px 50px rgba(0,0,0,.55);
+  }
+  .cookie-banner p { margin: 0; flex: 1 1 320px; font-size: .92rem; color: var(--muted); }
+  .cookie-banner p a { color: var(--honey); }
+  .cookie-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cookie-actions .btn { padding: .7em 1.3em; font-size: .92rem; font-family: inherit; cursor: pointer; border: 0; }
+  .cookie-actions .btn-ghost { background: transparent; border: 1.5px solid rgba(243,239,227,.4); }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 6px; }
+  .footer-links a, .link-btn {
+    color: rgba(243,239,227,.85); font: inherit; font-size: .85rem;
+    background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+  }
+  .footer-links a:hover, .link-btn:hover { color: var(--honey); }
+  .link-btn:focus-visible { outline: 3px solid var(--honey); outline-offset: 3px; border-radius: 4px; }
+  @media (max-width: 600px) {
+    .cookie-banner { bottom: 12px; padding: 16px; }
+    .cookie-actions { width: 100%; }
+    .cookie-actions .btn { flex: 1; justify-content: center; }
+  }
 </style>
-
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113564245', 'ym');
-
-    ym(113564245, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-
-    // Цель «telegram_click»: любое нажатие на ссылку в Telegram
-    document.addEventListener('click', function (e) {
-        var link = e.target.closest && e.target.closest('a[href*="t.me/"]');
-        if (link) ym(113564245, 'reachGoal', 'telegram_click');
-    });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/113564245" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -750,11 +758,90 @@
       </ul>
     </div>
     <div class="footer-bottom">
-      <span>© Lesnayadevka · свечи из пчелиного воска ручной работы<br><small>Сайт использует Яндекс Метрику, чтобы считать посещения.</small></span>
+      <div>
+        <span>© Lesnayadevka · свечи из пчелиного воска ручной работы</span>
+        <div class="footer-links">
+          <a href="privacy.html">Политика конфиденциальности</a>
+          <button type="button" class="link-btn" id="cookie-settings">Настройки cookie</button>
+        </div>
+      </div>
       <a href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">Telegram @Lesnayadevka444</a>
     </div>
   </div>
 </footer>
+
+<!-- Баннер согласия: Яндекс Метрика загружается только после «Принять» -->
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Согласие на cookie" hidden>
+  <p>Мы используем cookie и Яндекс Метрику, чтобы понимать, сколько людей заходит на сайт и что им интересно. Без вашего согласия счётчик не включается. Подробнее — в <a href="privacy.html">политике конфиденциальности</a>.</p>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn-ghost" id="cookie-decline">Отказаться</button>
+    <button type="button" class="btn btn-honey" id="cookie-accept">Принять</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var COUNTER = 113564245;
+  var KEY = 'lesnayadevka-cookie-consent';
+  var banner = document.getElementById('cookie-banner');
+
+  function getChoice() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function saveChoice(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  // Yandex.Metrika counter — запускается только после согласия
+  function loadMetrika() {
+    if (window.ym) return;
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113564245', 'ym');
+
+    ym(COUNTER, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  }
+
+  // Убрать cookie Метрики, если посетитель отозвал согласие
+  function clearMetrikaCookies() {
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (name.indexOf('_ym') !== 0) return;
+      ['', '; domain=' + location.hostname, '; domain=.' + location.hostname].forEach(function (d) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+      });
+    });
+  }
+
+  document.getElementById('cookie-accept').addEventListener('click', function () {
+    saveChoice('granted');
+    banner.hidden = true;
+    loadMetrika();
+  });
+
+  document.getElementById('cookie-decline').addEventListener('click', function () {
+    var wasLoaded = !!window.ym;
+    saveChoice('denied');
+    banner.hidden = true;
+    clearMetrikaCookies();
+    if (wasLoaded) location.reload(); // выгрузить уже запущенный счётчик
+  });
+
+  document.getElementById('cookie-settings').addEventListener('click', function () {
+    banner.hidden = false;
+    document.getElementById('cookie-accept').focus();
+  });
+
+  // Цель «telegram_click»: нажатие на любую ссылку в Telegram (только если счётчик включён)
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href*="t.me/"]');
+    if (link && window.ym) ym(COUNTER, 'reachGoal', 'telegram_click');
+  });
+
+  var choice = getChoice();
+  if (choice === 'granted') loadMetrika();
+  else if (choice !== 'denied') banner.hidden = false;
+})();
+</script>
 
 </body>
 </html>
