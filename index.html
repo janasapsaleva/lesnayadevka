@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesnayadevka — свечи из пчелиного воска ручной работы</title>
+<meta name="description" content="Свечи ручной работы из натурального пчелиного воска с пасеки белорусского леса. Без химикатов, ароматизаторов и красителей. Заказ в Telegram @Lesnayadevka444.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --forest: #2f6743;
+    --forest-deep: #1b4029;
+    --moss: #9cc98a;
+    --bark: #5e4532;
+    --bark-light: #8c6b4e;
+    --honey: #d9a441;
+    --honey-dark: #c99436;
+    --sage: #1a2e22;
+    --surface: #253d30;
+    --paper: #0b120d;
+    --muted: #b6c0ab;
+    --ink: #f3efe3;
+    --line: #3d5a49;
+    --on-dark: #f3efe3;
+    --radius: 10px;
+    --wrap: 1120px;
+
+    /* Фактура коры: «дикая», без полос — сетка трещин, тёмные пятна, светлый лишайник и зерно (SVG-шум) */
+    --bark-wild:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='.016 .028' numOctaves='4' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3.6 0 0 0 .72'/></filter><rect width='100%' height='100%' filter='url(%23c)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='d' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.006 .009' numOctaves='3' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.7 0 0 0 -.72'/></filter><filter id='l' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.02 .016' numOctaves='4' seed='29' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .93  0 0 0 0 .88  0 0 0 0 .7  -1.1 0 0 0 .4'/></filter><rect width='100%' height='100%' filter='url(%23d)'/><rect width='100%' height='100%' filter='url(%23l)'/></svg>"),
+      radial-gradient(ellipse 70% 60% at 15% 10%, rgba(255,236,190,.07), transparent 70%),
+      radial-gradient(ellipse 60% 70% at 90% 85%, rgba(0,0,0,.25), transparent 70%);
+    --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 .5em;
+  }
+  h2 { font-size: clamp(2rem, 4vw, 2.9rem); }
+  h3 { font-size: 1.6rem; }
+  p { margin: 0 0 1em; }
+  a { color: inherit; }
+  a:focus-visible, .btn:focus-visible {
+    outline: 3px solid var(--honey);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
+  .skip {
+    position: absolute; left: -9999px; top: 8px;
+    background: var(--honey); color: var(--forest-deep); padding: 8px 14px; border-radius: 6px; z-index: 10;
+  }
+  .skip:focus { left: 8px; }
+
+  .caps {
+    font-family: Inter, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+  .eyebrow { color: var(--moss); display: block; margin-bottom: .8rem; }
+  .lead { font-size: 1.1rem; color: var(--muted); max-width: 640px; }
+
+  /* Фоны с градиентом и мягкими световыми вспышками (без рисунка) */
+  .bark-forest {
+    background-color: var(--forest-deep);
+    background-image:
+      radial-gradient(circle at 16% 24%, rgba(217,164,65,.26), transparent 36%),
+      radial-gradient(circle at 88% 78%, rgba(156,201,138,.20), transparent 40%),
+      radial-gradient(ellipse 55% 35% at 62% 0%, rgba(255,232,180,.10), transparent 70%),
+      radial-gradient(circle at 96% 8%, rgba(217,164,65,.14), transparent 26%),
+      linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 55%, #0f2618 100%);
+    color: var(--on-dark);
+  }
+  .bark {
+    background-color: var(--bark);
+    background-image:
+      radial-gradient(circle at 14% 22%, rgba(217,164,65,.30), transparent 38%),
+      radial-gradient(circle at 86% 82%, rgba(255,200,120,.15), transparent 42%),
+      radial-gradient(circle at 70% 12%, rgba(140,107,78,.40), transparent 40%),
+      linear-gradient(160deg, #6b4c36 0%, #4a3426 55%, #2e2018 100%);
+    color: var(--on-dark);
+  }
+  /* Медленно «дышащие» блики поверх фона, под содержимым */
+  .glow { position: relative; overflow: hidden; isolation: isolate; }
+  .glow::after {
+    content: ""; position: absolute; inset: -20%; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(circle at 30% 38%, rgba(255,214,140,.16), transparent 22%),
+      radial-gradient(circle at 74% 62%, rgba(255,214,140,.10), transparent 20%),
+      radial-gradient(circle at 52% 88%, rgba(156,201,138,.10), transparent 18%);
+    animation: drift 14s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    from { transform: translate(-3%, -2%) scale(1); opacity: .65; }
+    to { transform: translate(3%, 2%) scale(1.08); opacity: 1; }
+  }
+
+  /* Кнопки */
+  .btn {
+    display: inline-flex; align-items: center; gap: .55em;
+    padding: .95em 1.6em;
+    border-radius: 999px;
+    font-weight: 600; font-size: 1rem;
+    text-decoration: none;
+    transition: background-color .2s, transform .2s, border-color .2s;
+  }
+  .btn-honey { background: var(--honey); color: var(--forest-deep); }
+  .btn-honey:hover { background: #e4b456; transform: translateY(-1px); }
+  .btn-ghost { border: 1.5px solid rgba(243,239,227,.55); color: var(--on-dark); }
+  .btn-ghost:hover { border-color: var(--honey); background: rgba(217,164,65,.12); }
+  .btn svg { width: 1.15em; height: 1.15em; flex: none; }
+
+  /* Шапка */
+  .site-header {
+    position: sticky; top: 0; z-index: 5;
+    background: linear-gradient(90deg, rgba(27,64,41,.94), rgba(15,38,24,.94));
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    color: var(--on-dark);
+    border-bottom: 1px solid rgba(217,164,65,.18);
+  }
+  .site-header .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; min-height: 64px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 1.55rem;
+    text-decoration: none; letter-spacing: .01em;
+  }
+  .logo svg { width: 26px; height: 26px; }
+  .nav { display: flex; gap: 22px; }
+  .nav a { text-decoration: none; font-size: .92rem; opacity: .88; }
+  .nav a:hover { opacity: 1; color: var(--honey); }
+  .header-tg { padding: .6em 1.1em; font-size: .9rem; }
+
+  /* Первый экран */
+  .hero { position: relative; overflow: hidden; }
+  .hero .wrap {
+    display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center;
+    padding-top: 80px; padding-bottom: 90px;
+  }
+  .hero-text { position: relative; }
+  .hero-text::before {
+    content: ""; position: absolute; z-index: 0;
+    width: 620px; height: 520px; left: -140px; top: -120px;
+    background: radial-gradient(closest-side, rgba(217,164,65,.38), rgba(217,164,65,.12) 55%, transparent);
+    pointer-events: none;
+    animation: flicker 5s ease-in-out infinite;
+  }
+  .hero-text > * { position: relative; }
+  .hero .eyebrow { color: var(--honey); }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); margin-bottom: .35em; }
+  .hero h1 em { font-style: italic; color: var(--honey); font-weight: 600; }
+  .hero-sub { font-size: 1.15rem; max-width: 520px; color: rgba(243,239,227,.88); margin-bottom: 2rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero-facts {
+    display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 2.2rem 0 0; padding: 0; list-style: none;
+    color: rgba(243,239,227,.8);
+  }
+  .hero-facts li::before { content: "✦ "; color: var(--honey); }
+  .hero-photo {
+    border-radius: 14px; overflow: hidden; aspect-ratio: 3 / 4;
+    box-shadow: 0 0 0 6px rgba(0,0,0,.25), 0 30px 60px rgba(0,0,0,.45);
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .82; transform: scale(1.04); }
+  }
+
+  /* Секции и разделитель */
+  section { padding: 88px 0; scroll-margin-top: 64px; }
+  .sage { background: var(--sage); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .divider { display: flex; justify-content: center; padding: 0; margin: -18px 0; position: relative; z-index: 1; }
+  .divider svg { width: 140px; height: 36px; }
+  .section-head { margin-bottom: 44px; }
+
+  /* Каталог */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .card {
+    display: flex; flex-direction: column;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 7px;
+    background-image: var(--noise), var(--bark-wild), linear-gradient(var(--bark-light), var(--bark));
+    box-shadow: 0 12px 30px rgba(0,0,0,.45);
+  }
+  .card-inner {
+    flex: 1; display: flex; flex-direction: column;
+    background: var(--surface); border-radius: 6px; overflow: hidden;
+  }
+  .card-photo { aspect-ratio: 4 / 5; overflow: hidden; background: var(--bark); }
+  .card-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+  .card:hover .card-photo img { transform: scale(1.04); }
+  .card-body { padding: 22px 22px 20px; display: flex; flex-direction: column; flex: 1; }
+  .card-body h3 { margin-bottom: .3em; }
+  .card-body > p { color: var(--muted); font-size: .97rem; }
+  .price-list { list-style: none; margin: 0 0 18px; padding: 0; border-top: 1px solid var(--line); }
+  .price-list li {
+    display: grid; grid-template-columns: 1fr auto; gap: 2px 12px;
+    padding: 11px 0; border-bottom: 1px solid var(--line);
+  }
+  .price-list .size { color: var(--ink); }
+  .price-list .burn { color: var(--muted); grid-column: 1; }
+  .price-list .price {
+    grid-row: 1 / span 2; grid-column: 2; align-self: center;
+    font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 1.5rem; color: var(--honey);
+    white-space: nowrap;
+  }
+  .price-list .price small { font-family: Inter, sans-serif; font-size: .7rem; letter-spacing: .1em; color: var(--muted); margin-left: 3px; font-weight: 600; }
+  .card-link {
+    margin-top: auto; align-self: flex-start;
+    color: var(--moss); font-weight: 600; text-decoration: none; font-size: .95rem;
+    border-bottom: 1.5px solid currentColor; padding-bottom: 1px;
+  }
+  .card-link:hover { color: var(--honey-dark); }
+  .swipe-hint {
+    display: none; align-items: center; gap: 8px; color: var(--muted); margin: -12px 0 14px;
+  }
+
+  .catalog-note {
+    grid-column: span 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 30px; border-radius: var(--radius);
+    border: 1.5px dashed var(--bark-light); background: var(--surface);
+  }
+  .catalog-note h3 { font-size: 1.45rem; }
+  .catalog-note p { color: var(--muted); font-size: .97rem; }
+
+  /* О воске */
+  .split { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; align-items: center; }
+  .framed {
+    border-radius: 14px; padding: 8px;
+    background-image: var(--noise), var(--bark-wild), linear-gradient(var(--bark-light), var(--bark));
+    background-color: var(--bark);
+  }
+  .framed .ph { aspect-ratio: 3 / 4; border-radius: 8px; overflow: hidden; }
+  .framed img { width: 100%; height: 100%; object-fit: cover; }
+  .facts { list-style: none; padding: 0; margin: 26px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 26px; }
+  .facts li { display: flex; gap: 12px; align-items: flex-start; }
+  .facts svg { flex: none; width: 26px; height: 26px; margin-top: 2px; }
+  .facts strong { display: block; }
+  .facts span { color: var(--muted); font-size: .94rem; }
+  .note {
+    background: var(--surface); border-left: 4px solid var(--honey);
+    padding: 18px 22px; border-radius: 0 var(--radius) var(--radius) 0; color: var(--ink);
+  }
+  .note p:last-child { margin: 0; }
+
+  /* Обряды */
+  .ritual { position: relative; }
+  .ritual .split { grid-template-columns: 1.1fr .9fr; }
+  .ritual .eyebrow { color: var(--honey); }
+  .ritual .lead { color: rgba(243,239,227,.85); }
+  .herbs { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 30px; padding: 0; list-style: none; }
+  .herbs li {
+    border: 1px solid rgba(217,164,65,.55); color: var(--on-dark);
+    border-radius: 999px; padding: 6px 16px;
+  }
+  .safety {
+    background: rgba(20,39,28,.75); border: 1px solid rgba(243,239,227,.16);
+    border-radius: var(--radius); padding: 22px 24px;
+  }
+  .safety h3 { font-size: 1.35rem; color: var(--honey); display: flex; align-items: center; gap: 10px; }
+  .safety h3 svg { width: 22px; height: 22px; }
+  .safety p { margin: 0; color: rgba(243,239,227,.9); font-size: .97rem; }
+  .ritual .framed .ph { aspect-ratio: 4 / 5; }
+
+  /* Подарки */
+  .gifts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .gift {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 26px 22px;
+  }
+  .gift svg { width: 38px; height: 38px; margin-bottom: 12px; }
+  .gift .val {
+    font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 2rem; color: var(--honey); line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .gift p { color: var(--muted); font-size: .95rem; margin: 0; }
+  .gift h3 { font-size: 1.3rem; margin-bottom: .3em; }
+
+  /* Условия */
+  .terms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .term { background: var(--surface); padding: 28px 26px; }
+  .term .caps { color: var(--moss); display: block; margin-bottom: 8px; }
+  .term p { margin: 0; color: var(--ink); }
+  .term p + p { margin-top: .5em; color: var(--muted); font-size: .95rem; }
+  .term a { color: var(--honey); font-weight: 600; }
+
+  /* Контакты / футер */
+  .site-footer { padding: 80px 0 34px; }
+  .contact-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items: start; }
+  .site-footer h2 { color: var(--on-dark); }
+  .site-footer .lead { color: rgba(243,239,227,.85); }
+  .contacts { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .contacts a {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px; border-radius: var(--radius);
+    background: rgba(20,39,28,.55); border: 1px solid rgba(243,239,227,.14);
+    text-decoration: none; transition: border-color .2s, background-color .2s;
+  }
+  .contacts a:hover { border-color: var(--honey); background: rgba(20,39,28,.75); }
+  .contacts svg { width: 24px; height: 24px; flex: none; color: var(--honey); }
+  .contacts .caps { display: block; color: rgba(243,239,227,.7); font-size: .68rem; }
+  .contacts strong { font-weight: 500; }
+  .footer-bottom {
+    margin-top: 60px; padding-top: 22px; border-top: 1px solid rgba(243,239,227,.15);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-size: .88rem; color: rgba(243,239,227,.72);
+  }
+
+  /* Адаптив */
+  @media (max-width: 1000px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .gifts { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 860px) {
+    body { font-size: 16px; }
+    .site-header .wrap { flex-wrap: wrap; min-height: 0; padding-top: 10px; padding-bottom: 0; gap: 8px 16px; }
+    .nav {
+      order: 3; flex: 0 0 calc(100% + 40px); margin: 0 -20px; padding: 6px 20px 10px;
+      gap: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a {
+      flex: none; padding: 7px 14px; border-radius: 999px; font-size: .88rem;
+      border: 1px solid rgba(243,239,227,.22); background: rgba(20,39,28,.6);
+    }
+    section, .site-footer { scroll-margin-top: 112px; }
+    .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 60px; gap: 36px; }
+    .hero-text::before { width: 420px; height: 380px; left: -120px; top: -90px; }
+    .hero-photo { aspect-ratio: 4 / 3; }
+    section { padding: 64px 0; }
+    .split, .ritual .split, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+    .framed .ph { aspect-ratio: 4 / 3; }
+    .ritual .framed { order: -1; }
+    .ritual .framed .ph { aspect-ratio: 4 / 3; }
+    .terms { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    h2 { font-size: 1.9rem; }
+    section { padding: 52px 0; }
+    .section-head { margin-bottom: 28px; }
+    .lead { font-size: 1.02rem; }
+    .header-tg span { display: none; }
+    .header-tg { padding: .6em .8em; }
+    .hero .wrap { padding-top: 36px; padding-bottom: 48px; gap: 28px; }
+    .hero h1 { font-size: 2.35rem; }
+    .hero-sub { font-size: 1.02rem; margin-bottom: 1.5rem; }
+    .hero-facts { margin-top: 1.6rem; }
+    .hero-actions .btn, .contact-grid .btn, .catalog-note .btn { width: 100%; justify-content: center; }
+
+    /* Каталог — горизонтальная лента карточек, листается пальцем */
+    .cards {
+      display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+      margin: 0 -20px; padding: 4px 20px 16px; scroll-padding: 0 20px;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .cards::-webkit-scrollbar { display: none; }
+    .card, .catalog-note { flex: 0 0 86%; scroll-snap-align: start; }
+    .card-photo { aspect-ratio: 4 / 3; }
+    .card-body { padding: 18px; }
+    .card-link { padding: 10px 0 4px; border-bottom: 0; text-decoration: underline; text-underline-offset: 4px; }
+    .swipe-hint { display: flex; }
+
+    .facts { grid-template-columns: 1fr; gap: 14px; }
+    .gifts { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .gift { padding: 18px 16px; }
+    .gift svg { width: 30px; height: 30px; margin-bottom: 8px; }
+    .gift h3 { font-size: 1.12rem; }
+    .gift .val { font-size: 1.6rem; }
+    .gift p { font-size: .88rem; }
+    .term { padding: 22px 20px; }
+    .safety { padding: 18px; }
+    .contacts a { padding: 12px 14px; }
+    .contacts strong { word-break: break-word; }
+    .site-footer { padding-top: 56px; }
+    .footer-bottom { flex-direction: column; margin-top: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Перейти к содержанию</a>
+
+<!-- Символы для повторного использования -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-tg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.2-8.3c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5Z"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c.6 3.2-1.1 4.9-2.6 6.6C8 10.2 7 11.7 7 14a5 5 0 0 0 10 0c0-2.2-1-3.8-2-5 .1 1.5-.4 2.6-1.4 3 .6-3.6-.4-7.6-1.6-10Z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M5 19C5 10 11 5 20 4c0 9-5 15-14 15Zm0 0 8-8"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Lesnayadevka — на главную">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flame" style="color:var(--honey)"/></svg>
+      Lesnayadevka
+    </a>
+    <nav class="nav" aria-label="Разделы сайта">
+      <a href="#catalog">Свечи</a>
+      <a href="#wax">О воске</a>
+      <a href="#ritual">Для обрядов</a>
+      <a href="#gifts">Подарки</a>
+      <a href="#terms">Условия</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-honey header-tg" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener" aria-label="Заказать в Telegram">
+      <svg aria-hidden="true"><use href="#i-tg"/></svg><span>Заказать</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 1. Первый экран -->
+  <section class="hero bark-forest glow" id="top" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-text">
+        <span class="eyebrow caps">Свечная лавка ручной работы</span>
+        <h1 id="hero-title">Дух леса: свечи из настоящего <em>пчелиного воска</em>, сделанные руками</h1>
+        <p class="hero-sub">Воск с пасеки белорусского леса, хлопковый фитиль и тёплый живой огонь. Без химикатов, ароматизаторов и красителей.</p>
+        <div class="hero-actions">
+          <a class="btn btn-honey" href="#catalog">Выбрать свечу</a>
+          <a class="btn btn-ghost" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-tg"/></svg>Заказать в Telegram
+          </a>
+        </div>
+        <ul class="hero-facts caps">
+          <li>Ручная работа</li>
+          <li>Хлопковый фитиль</li>
+          <li>Небольшие партии</li>
+        </ul>
+      </div>
+      <div class="hero-photo">
+        <img src="images/svechi-v-lesu.jpg" width="749" height="1000"
+             alt="Три тонкие свечи из пчелиного воска стоят в снегу у ствола дерева в зимнем лесу">
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Каталог -->
+  <section class="sage" id="catalog" aria-labelledby="catalog-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow caps">Наши свечи</span>
+        <h2 id="catalog-title">Пять видов свечей и их цены</h2>
+        <p class="lead">Каждую свечу делаем вручную, поэтому у каждой своя фактура и оттенок. Цены в белорусских рублях. Наличие может меняться — уточняйте в Telegram.</p>
+      </div>
+
+      <p class="swipe-hint caps" aria-hidden="true">Листайте карточки →</p>
+      <div class="cards">
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-photo">
+              <img src="images/katanye-svechi.jpg" width="753" height="1000" loading="lazy"
+                   alt="Четыре катаные свечи с узором из веточек лежат рядом с корзинкой камней">
+            </div>
+            <div class="card-body">
+              <h3>Катаные</h3>
+              <p>Скатанные вручную из нетопленого воска.</p>
+              <ul class="price-list">
+                <li><span class="size caps">2 × 10 см</span><span class="burn">горит 3 часа</span><span class="price">8,00<small>BYN</small></span></li>
+                <li><span class="size caps">6 × 12 см</span><span class="burn">горит 4,5 часа</span><span class="price">13,00<small>BYN</small></span></li>
+              </ul>
+              <a class="card-link" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">Заказать в Telegram</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-photo">
+              <img src="images/makanye-svechi.jpg" width="981" height="1000" loading="lazy"
+                   alt="Восемь маканых свечей медового цвета с закрученными фитилями на тёмном камне">
+            </div>
+            <div class="card-body">
+              <h3>Маканые</h3>
+              <p>Слой за слоем окунаем фитиль в тёплый воск, пока свеча не наберёт форму.</p>
+              <ul class="price-list">
+                <li><span class="size caps">2 × 10 см</span><span class="burn">горит 4 часа</span><span class="price">8,00<small>BYN</small></span></li>
+                <li><span class="size caps">4 × 12 см</span><span class="burn">горит 6 часов</span><span class="price">12,00<small>BYN</small></span></li>
+              </ul>
+              <a class="card-link" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">Заказать в Telegram</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-photo">
+              <img src="images/formovaya-svecha.jpg" width="1000" height="750" loading="lazy"
+                   alt="Горящая формовая свеча в виде сидящей женской фигуры среди веток и коры">
+            </div>
+            <div class="card-body">
+              <h3>Формовые</h3>
+              <p>Отлиты в форме — фигурные свечи для полки, алтаря или подарка.</p>
+              <ul class="price-list">
+                <li><span class="size caps">2 см</span><span class="burn">горит 1,5 часа</span><span class="price">6,00<small>BYN</small></span></li>
+                <li><span class="size caps">6 см</span><span class="burn">горит 4 часа</span><span class="price">13,00<small>BYN</small></span></li>
+              </ul>
+              <a class="card-link" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">Заказать в Telegram</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-photo">
+              <img src="images/stolovye-svechi.jpg" width="825" height="1100" loading="lazy"
+                   alt="Пять длинных столовых свечей из воска лежат крест-накрест на снегу">
+            </div>
+            <div class="card-body">
+              <h3>Столовые</h3>
+              <p>Высокие и тонкие — для вечернего стола и долгих разговоров.</p>
+              <ul class="price-list">
+                <li><span class="size caps">3 × 20 см</span><span class="burn">горит 4–5 часов</span><span class="price">15,00<small>BYN</small></span></li>
+              </ul>
+              <a class="card-link" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">Заказать в Telegram</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-inner">
+            <div class="card-photo">
+              <img src="images/svechi-s-travami.jpg" width="1000" height="750" loading="lazy"
+                   alt="Конусные свечи, покрытые сухими лепестками и травами, на золотом подносе">
+            </div>
+            <div class="card-body">
+              <h3>С травами</h3>
+              <p>Катаные и маканые свечи с полынью, пижмой, крапивой, чертополохом или розой.</p>
+              <ul class="price-list">
+                <li><span class="size caps">от 4 см, высота 10 см</span><span class="burn">горит от 1 до 2 часов</span><span class="price">13,00<small>BYN</small></span></li>
+              </ul>
+              <a class="card-link" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">Заказать в Telegram</a>
+            </div>
+          </div>
+        </article>
+
+        <aside class="catalog-note" aria-label="Как заказать">
+          <span class="eyebrow caps">Как заказать</span>
+          <h3>Напишите нам в Telegram</h3>
+          <p>Корзины на сайте нет: выберите свечу и напишите в @Lesnayadevka444 — поможем с выбором и ответим на вопросы. Поддержка круглосуточно.</p>
+          <a class="btn btn-honey" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener" style="align-self:flex-start">
+            <svg aria-hidden="true"><use href="#i-tg"/></svg>Заказать в Telegram
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="0 0 140 36"><g fill="none" stroke="#8c6b4e" stroke-width="1.4" stroke-linecap="round"><path d="M4 18h46M90 18h46"/><ellipse cx="70" cy="18" rx="16" ry="14" fill="#0b120d"/><ellipse cx="70" cy="18" rx="11" ry="9.5"/><ellipse cx="70.5" cy="18.5" rx="6.5" ry="5.5"/><circle cx="71" cy="19" r="2"/></g></svg>
+  </div>
+
+  <!-- 3. О воске и пасеке -->
+  <section id="wax" aria-labelledby="wax-title">
+    <div class="wrap split">
+      <div class="framed">
+        <div class="ph">
+          <img src="images/svecha-na-kore.jpg" width="825" height="1100" loading="lazy"
+               alt="Формовая свеча из воска в виде лика стоит на древесном грибе на стволе дерева">
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow caps">О воске и пасеке</span>
+        <h2 id="wax-title">Воск, который помнит лес</h2>
+        <p class="lead">Пасека на опушке — начало каждой свечи. Мы берём воск с пасеки белорусского леса и делаем из него свечи вручную, небольшими партиями. Ничего лишнего — только воск и огонь.</p>
+        <ul class="facts">
+          <li><svg aria-hidden="true" style="color:var(--moss)"><use href="#i-leaf"/></svg><div><strong>Без химикатов</strong><span>натуральный пчелиный воск</span></div></li>
+          <li><svg aria-hidden="true" style="color:var(--moss)"><use href="#i-leaf"/></svg><div><strong>Без ароматизаторов</strong><span>и без красителей</span></div></li>
+          <li><svg aria-hidden="true" style="color:var(--honey-dark)"><use href="#i-flame"/></svg><div><strong>Хлопковые фитили</strong><span>ровное спокойное пламя</span></div></li>
+          <li><svg aria-hidden="true" style="color:var(--honey-dark)"><use href="#i-flame"/></svg><div><strong>Ручная работа</strong><span>небольшими партиями</span></div></li>
+        </ul>
+        <div class="note">
+          <p><strong>Живой воск — живая фактура.</strong> Каждая свеча немного не похожа на соседнюю.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Обряды -->
+  <section class="ritual bark-forest glow" id="ritual" aria-labelledby="ritual-title">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow caps">Для обрядов и ритуалов</span>
+        <h2 id="ritual-title">Свечи с травами — часть традиции</h2>
+        <p class="lead">Свечу с травами зажигают, чтобы создать атмосферу: для тихого вечера, личного ритуала или обряда по традиции. Огонь и травы помогают остановиться и побыть в моменте.</p>
+        <ul class="herbs" aria-label="Травы в свечах">
+          <li>Полынь</li><li>Пижма</li><li>Крапива</li><li>Чертополох</li><li>Роза</li>
+        </ul>
+        <div class="safety">
+          <h3><svg aria-hidden="true"><use href="#i-flame"/></svg>Бережно с огнём</h3>
+          <p>Подрезайте фитиль до 5–7 мм, ставьте свечу на ровную термостойкую подставку, не оставляйте горящую свечу без присмотра, держите вдали от детей, животных, сухих трав и тканей. Тушите колпачком, а не водой.</p>
+        </div>
+      </div>
+      <div class="framed">
+        <div class="ph">
+          <img src="images/svechi-s-travami-polyn.jpg" width="563" height="1000" loading="lazy"
+               alt="Свечи, обсыпанные сушёными травами, рядом с чашей сухих трав">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Подарки и акции -->
+  <section class="sage" id="gifts" aria-labelledby="gifts-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow caps">Подарки и акции</span>
+        <h2 id="gifts-title">Подарок с душой</h2>
+        <p class="lead">Свечу можно упаковать в подарок и добавить открытку с вашими словами.</p>
+      </div>
+      <div class="gifts">
+        <article class="gift">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#b08a66" stroke-width="1.6" stroke-linejoin="round"><rect x="6" y="15" width="28" height="19" rx="2"/><rect x="4" y="10" width="32" height="6" rx="1.5"/><path d="M20 10v24M20 10c-3-6-10-6-8-1 1 2 5 1 8 1Zm0 0c3-6 10-6 8-1-1 2-5 1-8 1Z"/></svg>
+          <h3>Подарочная упаковка</h3>
+          <div class="val">10,00 <span class="caps" style="font-size:.7rem;color:var(--muted)">BYN</span></div>
+        </article>
+        <article class="gift">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#b08a66" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="9" width="30" height="22" rx="2"/><path d="M5 11l15 11 15-11"/></svg>
+          <h3>Открытка</h3>
+          <div class="val">4,00 <span class="caps" style="font-size:.7rem;color:var(--muted)">BYN</span></div>
+        </article>
+        <article class="gift">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#8fb87f" stroke-width="1.6" stroke-linecap="round"><path d="M20 36V14M20 22c-5-1-9-5-9-11 5 1 9 5 9 11Zm0-4c4-1 8-4 8-10-4 1-8 4-8 10Zm0 10c-4 0-8-3-9-8 4 0 8 3 9 8Zm0-2c4 0 7-3 8-7-4 0-7 3-8 7Z"/></svg>
+          <h3>Скрутка полыни</h3>
+          <p>в подарок при заказе от 100,00 BYN</p>
+        </article>
+        <article class="gift">
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#d9a441" stroke-width="1.6" stroke-linecap="round"><path d="M8 34V16M15 34V12M22 34V16M29 34V12"/><path d="M8 14v-3M15 10V7M22 14v-3M29 10V7"/></svg>
+          <h3>−3,00 на свечу</h3>
+          <p>на наборы от 10 свечей из каталога — скидка на каждую свечу</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Условия -->
+  <section id="terms" aria-labelledby="terms-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow caps">Условия</span>
+        <h2 id="terms-title">Доставка, оплата и обмен</h2>
+      </div>
+      <div class="terms">
+        <div class="term">
+          <span class="caps">Заказ</span>
+          <p>В Telegram <a href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">@Lesnayadevka444</a>.</p>
+          <p>Поддержка круглосуточно.</p>
+        </div>
+        <div class="term">
+          <span class="caps">Доставка</span>
+          <p>СДЭК или почтой.</p>
+          <p>Первый заказ — с бесплатной доставкой. Дальше стоимость рассчитывает СДЭК или почта по весу посылки и месту назначения.</p>
+        </div>
+        <div class="term">
+          <span class="caps">Оплата</span>
+          <p>Переводом на карту.</p>
+        </div>
+        <div class="term">
+          <span class="caps">Возврат и обмен</span>
+          <p>Если свечи пришли сломанными или разбитыми, обменяем их или вернём деньги.</p>
+        </div>
+        <div class="term">
+          <span class="caps">Оптовые заказы</span>
+          <p>По телефону <a href="tel:+375298207347">+375 29 820 73 47</a>.</p>
+        </div>
+        <div class="term">
+          <span class="caps">Наличие</span>
+          <p>Свечи делаем небольшими партиями, поэтому наличие может меняться.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 7. Контакты -->
+<footer class="site-footer bark glow" id="contacts" aria-labelledby="contacts-title">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <span class="eyebrow caps" style="color:var(--honey)">Контакты</span>
+        <h2 id="contacts-title">Напиши нам, если хочешь заказать свечу с особенным характером</h2>
+        <p class="lead">Ответим в Telegram, поможем выбрать свечу в подарок или для себя.</p>
+        <a class="btn btn-honey" href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#i-tg"/></svg>Заказать в Telegram
+        </a>
+      </div>
+      <ul class="contacts">
+        <li><a href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#i-tg"/></svg>
+          <div><span class="caps">Telegram</span><strong>@Lesnayadevka444</strong></div></a></li>
+        <li><a href="https://vk.com/lesnayadevka" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.8 18C6.4 18 2.7 13.6 2.5 6.2h3.2c.1 5.4 2.5 7.7 4.4 8.2V6.2h3v4.7c1.9-.2 3.8-2.3 4.5-4.7h3c-.5 2.9-2.6 5-4.1 5.9 1.5.7 3.9 2.6 4.8 5.9h-3.3c-.7-2.2-2.5-4-4.9-4.2V18h-.3Z"/></svg>
+          <div><span class="caps">ВКонтакте</span><strong>lesnayadevka</strong></div></a></li>
+        <li><a href="mailto:lesnayadevka@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg>
+          <div><span class="caps">Почта</span><strong>lesnayadevka@gmail.com</strong></div></a></li>
+        <li><a href="tel:+375298207347">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>
+          <div><span class="caps">Телефон · опт</span><strong>+375 29 820 73 47</strong></div></a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© Lesnayadevka · свечи из пчелиного воска ручной работы</span>
+      <a href="https://t.me/Lesnayadevka444" target="_blank" rel="noopener">Telegram @Lesnayadevka444</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
