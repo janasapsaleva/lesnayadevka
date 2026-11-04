@@ -11,19 +11,19 @@
 <style>
   :root {
     color-scheme: dark;
-    --forest: #2f6743;
-    --forest-deep: #1b4029;
-    --moss: #9cc98a;
-    --bark: #5e4532;
-    --bark-light: #8c6b4e;
-    --honey: #d9a441;
-    --honey-dark: #c99436;
-    --sage: #1a2e22;
-    --surface: #253d30;
-    --paper: #0b120d;
-    --muted: #b6c0ab;
+    --forest: #3b5148;
+    --forest-deep: #22312c;
+    --moss: #b9c49c;
+    --bark: #5b5446;
+    --bark-light: #857a63;
+    --honey: #efc07a;
+    --honey-dark: #d9a25f;
+    --sage: #192421;
+    --surface: #26332f;
+    --paper: #101614;
+    --muted: #c3c0c4;
     --ink: #f3efe3;
-    --line: #3d5a49;
+    --line: #40524b;
     --on-dark: #f3efe3;
     --radius: 10px;
     --wrap: 1120px;
@@ -85,20 +85,20 @@
   .bark-forest {
     background-color: var(--forest-deep);
     background-image:
-      radial-gradient(circle at 16% 24%, rgba(217,164,65,.26), transparent 36%),
-      radial-gradient(circle at 88% 78%, rgba(156,201,138,.20), transparent 40%),
+      radial-gradient(circle at 16% 24%, rgba(239,192,122,.26), transparent 36%),
+      radial-gradient(circle at 88% 78%, rgba(197,193,196,.20), transparent 40%),
       radial-gradient(ellipse 55% 35% at 62% 0%, rgba(255,232,180,.10), transparent 70%),
-      radial-gradient(circle at 96% 8%, rgba(217,164,65,.14), transparent 26%),
-      linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 55%, #0f2618 100%);
+      radial-gradient(circle at 96% 8%, rgba(239,192,122,.14), transparent 26%),
+      linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 55%, #141d1a 100%);
     color: var(--on-dark);
   }
   .bark {
     background-color: var(--bark);
     background-image:
-      radial-gradient(circle at 14% 22%, rgba(217,164,65,.30), transparent 38%),
+      radial-gradient(circle at 14% 22%, rgba(239,192,122,.30), transparent 38%),
       radial-gradient(circle at 86% 82%, rgba(255,200,120,.15), transparent 42%),
-      radial-gradient(circle at 70% 12%, rgba(140,107,78,.40), transparent 40%),
-      linear-gradient(160deg, #6b4c36 0%, #4a3426 55%, #2e2018 100%);
+      radial-gradient(circle at 70% 12%, rgba(133,122,99,.40), transparent 40%),
+      linear-gradient(160deg, #4f4c40 0%, #34342d 55%, #1d1e1a 100%);
     color: var(--on-dark);
   }
   /* Медленно «дышащие» блики поверх фона, под содержимым */
@@ -108,7 +108,7 @@
     background:
       radial-gradient(circle at 30% 38%, rgba(255,214,140,.16), transparent 22%),
       radial-gradient(circle at 74% 62%, rgba(255,214,140,.10), transparent 20%),
-      radial-gradient(circle at 52% 88%, rgba(156,201,138,.10), transparent 18%);
+      radial-gradient(circle at 52% 88%, rgba(197,193,196,.10), transparent 18%);
     animation: drift 14s ease-in-out infinite alternate;
   }
   @keyframes drift {
@@ -126,18 +126,18 @@
     transition: background-color .2s, transform .2s, border-color .2s;
   }
   .btn-honey { background: var(--honey); color: var(--forest-deep); }
-  .btn-honey:hover { background: #e4b456; transform: translateY(-1px); }
+  .btn-honey:hover { background: #f5cd8f; transform: translateY(-1px); }
   .btn-ghost { border: 1.5px solid rgba(243,239,227,.55); color: var(--on-dark); }
-  .btn-ghost:hover { border-color: var(--honey); background: rgba(217,164,65,.12); }
+  .btn-ghost:hover { border-color: var(--honey); background: rgba(239,192,122,.12); }
   .btn svg { width: 1.15em; height: 1.15em; flex: none; }
 
   /* Шапка */
   .site-header {
     position: sticky; top: 0; z-index: 5;
-    background: linear-gradient(90deg, rgba(27,64,41,.94), rgba(15,38,24,.94));
+    background: linear-gradient(90deg, rgba(34,49,44,.94), rgba(18,26,23,.94));
     -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
     color: var(--on-dark);
-    border-bottom: 1px solid rgba(217,164,65,.18);
+    border-bottom: 1px solid rgba(239,192,122,.18);
   }
   .site-header .wrap {
     display: flex; align-items: center; justify-content: space-between;
@@ -164,7 +164,7 @@
   .hero-text::before {
     content: ""; position: absolute; z-index: 0;
     width: 620px; height: 520px; left: -140px; top: -120px;
-    background: radial-gradient(closest-side, rgba(217,164,65,.38), rgba(217,164,65,.12) 55%, transparent);
+    background: radial-gradient(closest-side, rgba(239,192,122,.38), rgba(239,192,122,.12) 55%, transparent);
     pointer-events: none;
     animation: flicker 5s ease-in-out infinite;
   }
@@ -255,13 +255,13 @@
   .wax-photo-bg {
     background-color: var(--paper);
     background-image:
-      linear-gradient(90deg, rgba(11,18,13,.15) 0%, rgba(11,18,13,.45) 45%, rgba(11,18,13,.78) 100%),
-      linear-gradient(180deg, rgba(11,18,13,.5) 0%, transparent 18%, transparent 82%, rgba(11,18,13,.55) 100%),
+      linear-gradient(90deg, rgba(16,22,20,.15) 0%, rgba(16,22,20,.45) 45%, rgba(16,22,20,.78) 100%),
+      linear-gradient(180deg, rgba(16,22,20,.5) 0%, transparent 18%, transparent 82%, rgba(16,22,20,.55) 100%),
       url("images/les-v-tumane.jpg");
     background-size: cover;
     background-position: center 58%;
   }
-  .wax-photo-bg .note { background: rgba(37,61,48,.85); }
+  .wax-photo-bg .note { background: rgba(38,51,47,.85); }
   .framed {
     border-radius: 14px; padding: 8px;
     background-image: var(--noise), var(--bark-wild), linear-gradient(var(--bark-light), var(--bark));
@@ -289,11 +289,11 @@
   .ritual .lead { color: rgba(243,239,227,.85); }
   .herbs { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 30px; padding: 0; list-style: none; }
   .herbs li {
-    border: 1px solid rgba(217,164,65,.55); color: var(--on-dark);
+    border: 1px solid rgba(239,192,122,.55); color: var(--on-dark);
     border-radius: 999px; padding: 6px 16px;
   }
   .safety {
-    background: rgba(20,39,28,.75); border: 1px solid rgba(243,239,227,.16);
+    background: rgba(22,31,28,.75); border: 1px solid rgba(243,239,227,.16);
     border-radius: var(--radius); padding: 22px 24px;
   }
   .safety h3 { font-size: 1.35rem; color: var(--honey); display: flex; align-items: center; gap: 10px; }
@@ -332,10 +332,10 @@
   .contacts a {
     display: flex; align-items: center; gap: 14px;
     padding: 14px 18px; border-radius: var(--radius);
-    background: rgba(20,39,28,.55); border: 1px solid rgba(243,239,227,.14);
+    background: rgba(22,31,28,.55); border: 1px solid rgba(243,239,227,.14);
     text-decoration: none; transition: border-color .2s, background-color .2s;
   }
-  .contacts a:hover { border-color: var(--honey); background: rgba(20,39,28,.75); }
+  .contacts a:hover { border-color: var(--honey); background: rgba(22,31,28,.75); }
   .contacts svg { width: 24px; height: 24px; flex: none; color: var(--honey); }
   .contacts .caps { display: block; color: rgba(243,239,227,.7); font-size: .68rem; }
   .contacts strong { font-weight: 500; }
@@ -353,7 +353,7 @@
   @media (max-width: 860px) {
     .wax-photo-bg {
       background-image:
-        linear-gradient(180deg, rgba(11,18,13,.55) 0%, rgba(11,18,13,.78) 40%, rgba(11,18,13,.9) 100%),
+        linear-gradient(180deg, rgba(16,22,20,.55) 0%, rgba(16,22,20,.78) 40%, rgba(16,22,20,.9) 100%),
         url("images/les-v-tumane.jpg");
     }
     body { font-size: 16px; }
@@ -365,7 +365,7 @@
     .nav::-webkit-scrollbar { display: none; }
     .nav a {
       flex: none; padding: 7px 14px; border-radius: 999px; font-size: .88rem;
-      border: 1px solid rgba(243,239,227,.22); background: rgba(20,39,28,.6);
+      border: 1px solid rgba(243,239,227,.22); background: rgba(22,31,28,.6);
     }
     section, .site-footer { scroll-margin-top: 112px; }
     .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 60px; gap: 36px; }
@@ -623,7 +623,7 @@
   </section>
 
   <div class="divider" aria-hidden="true">
-    <svg viewBox="0 0 140 36"><g fill="none" stroke="#8c6b4e" stroke-width="1.4" stroke-linecap="round"><path d="M4 18h46M90 18h46"/><ellipse cx="70" cy="18" rx="16" ry="14" fill="#0b120d"/><ellipse cx="70" cy="18" rx="11" ry="9.5"/><ellipse cx="70.5" cy="18.5" rx="6.5" ry="5.5"/><circle cx="71" cy="19" r="2"/></g></svg>
+    <svg viewBox="0 0 140 36"><g fill="none" stroke="#857a63" stroke-width="1.4" stroke-linecap="round"><path d="M4 18h46M90 18h46"/><ellipse cx="70" cy="18" rx="16" ry="14" fill="#101614"/><ellipse cx="70" cy="18" rx="11" ry="9.5"/><ellipse cx="70.5" cy="18.5" rx="6.5" ry="5.5"/><circle cx="71" cy="19" r="2"/></g></svg>
   </div>
 
   <!-- 3. О воске и пасеке -->
@@ -686,22 +686,22 @@
       </div>
       <div class="gifts">
         <article class="gift">
-          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#b08a66" stroke-width="1.6" stroke-linejoin="round"><rect x="6" y="15" width="28" height="19" rx="2"/><rect x="4" y="10" width="32" height="6" rx="1.5"/><path d="M20 10v24M20 10c-3-6-10-6-8-1 1 2 5 1 8 1Zm0 0c3-6 10-6 8-1-1 2-5 1-8 1Z"/></svg>
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#cbb48a" stroke-width="1.6" stroke-linejoin="round"><rect x="6" y="15" width="28" height="19" rx="2"/><rect x="4" y="10" width="32" height="6" rx="1.5"/><path d="M20 10v24M20 10c-3-6-10-6-8-1 1 2 5 1 8 1Zm0 0c3-6 10-6 8-1-1 2-5 1-8 1Z"/></svg>
           <h3>Подарочная упаковка</h3>
           <div class="val">10,00 <span class="caps" style="font-size:.7rem;color:var(--muted)">BYN</span></div>
         </article>
         <article class="gift">
-          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#b08a66" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="9" width="30" height="22" rx="2"/><path d="M5 11l15 11 15-11"/></svg>
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#cbb48a" stroke-width="1.6" stroke-linejoin="round"><rect x="5" y="9" width="30" height="22" rx="2"/><path d="M5 11l15 11 15-11"/></svg>
           <h3>Открытка</h3>
           <div class="val">4,00 <span class="caps" style="font-size:.7rem;color:var(--muted)">BYN</span></div>
         </article>
         <article class="gift">
-          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#8fb87f" stroke-width="1.6" stroke-linecap="round"><path d="M20 36V14M20 22c-5-1-9-5-9-11 5 1 9 5 9 11Zm0-4c4-1 8-4 8-10-4 1-8 4-8 10Zm0 10c-4 0-8-3-9-8 4 0 8 3 9 8Zm0-2c4 0 7-3 8-7-4 0-7 3-8 7Z"/></svg>
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#b9c49c" stroke-width="1.6" stroke-linecap="round"><path d="M20 36V14M20 22c-5-1-9-5-9-11 5 1 9 5 9 11Zm0-4c4-1 8-4 8-10-4 1-8 4-8 10Zm0 10c-4 0-8-3-9-8 4 0 8 3 9 8Zm0-2c4 0 7-3 8-7-4 0-7 3-8 7Z"/></svg>
           <h3>Скрутка полыни</h3>
           <p>в подарок при заказе от 100,00 BYN</p>
         </article>
         <article class="gift">
-          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#d9a441" stroke-width="1.6" stroke-linecap="round"><path d="M8 34V16M15 34V12M22 34V16M29 34V12"/><path d="M8 14v-3M15 10V7M22 14v-3M29 10V7"/></svg>
+          <svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#efc07a" stroke-width="1.6" stroke-linecap="round"><path d="M8 34V16M15 34V12M22 34V16M29 34V12"/><path d="M8 14v-3M15 10V7M22 14v-3M29 10V7"/></svg>
           <h3>−3,00 на свечу</h3>
           <p>на наборы от 10 свечей из каталога — скидка на каждую свечу</p>
         </article>
