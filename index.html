@@ -210,11 +210,10 @@
   .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
   .card {
     display: flex; flex-direction: column;
-    background: var(--surface);
     border-radius: var(--radius);
-    padding: 7px;
-    background-image: var(--noise), var(--bark-wild), linear-gradient(var(--bark-light), var(--bark));
-    box-shadow: 0 12px 30px rgba(0,0,0,.45);
+    border: 2px dotted rgba(203,180,138,.85);
+    padding: 5px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
   }
   .card-inner {
     flex: 1; display: flex; flex-direction: column;
@@ -253,7 +252,7 @@
     grid-column: span 1;
     display: flex; flex-direction: column; justify-content: center;
     padding: 30px; border-radius: var(--radius);
-    border: 1.5px dashed var(--bark-light); background: var(--surface);
+    border: 2px dotted rgba(203,180,138,.85); background: var(--surface);
   }
   .catalog-note h3 { font-size: 1.45rem; }
   .catalog-note p { color: var(--muted); font-size: .97rem; }
