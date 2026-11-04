@@ -173,9 +173,10 @@
   /* Первый экран */
   .hero { position: relative; overflow: hidden; }
   .hero .wrap {
-    display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center;
+    display: grid; grid-template-columns: 1fr; align-content: center; min-height: 72vh;
     padding-top: 80px; padding-bottom: 90px;
   }
+  .hero-text { max-width: 680px; }
   .hero-text { position: relative; }
   .hero-text::before {
     content: ""; position: absolute; z-index: 0;
@@ -195,11 +196,6 @@
     color: rgba(243,239,227,.8);
   }
   .hero-facts li::before { content: "✦ "; color: var(--honey); }
-  .hero-photo {
-    aspect-ratio: 3 / 4; border-radius: 14px; overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0,0,0,.45);
-  }
-  .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
   @keyframes flicker {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: .82; transform: scale(1.04); }
@@ -434,7 +430,6 @@
     section, .site-footer { scroll-margin-top: 112px; }
     .hero .wrap { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 60px; gap: 36px; }
     .hero-text::before { width: 420px; height: 380px; left: -120px; top: -90px; }
-    .hero-photo { aspect-ratio: 4 / 3; }
     section { padding: 64px 0; }
     .split, .ritual .split, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
     .framed .ph { aspect-ratio: 4 / 3; }
@@ -568,10 +563,6 @@
           <li>Небольшие партии</li>
         </ul>
       </div>
-      <div class="hero-photo">
-        <img src="images/svecha-na-kore.jpg" width="825" height="1100"
-             alt="Формовая свеча из воска в виде лика стоит на древесном грибе на стволе дерева">
-      </div>
     </div>
   </section>
   <div class="divider" aria-hidden="true">
@@ -640,8 +631,8 @@
           <div class="card-inner">
             <div class="card-photo gallery" role="group" aria-roledescription="карусель" aria-label="Фото: формовые свечи, 3 шт.">
               <div class="gallery-track" tabindex="0">
-                <img src="images/formovaya-svecha.jpg" width="1000" height="750" loading="lazy" alt="Горящая формовая свеча в виде сидящей женской фигуры среди веток и коры">
                 <img src="images/svecha-na-kore.jpg" width="825" height="1100" loading="lazy" alt="Формовая свеча в виде лика стоит на древесном грибе на стволе дерева">
+                <img src="images/formovaya-svecha.jpg" width="1000" height="750" loading="lazy" alt="Горящая формовая свеча в виде сидящей женской фигуры среди веток и коры">
                 <img src="images/formovye-svechi-3.jpg" width="750" height="1000" loading="lazy" alt="Зелёная формовая свеча из множества фигурок на подставке из плоских камней среди мха">
               </div>
               <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
