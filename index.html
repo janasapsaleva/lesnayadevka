@@ -305,6 +305,7 @@
     background-size: cover;
     background-position: center 58%;
   }
+  .wax-text > div { max-width: 760px; margin-left: auto; }
   .wax-photo-bg .note { background: rgba(38,51,47,.85); }
 
   /* Первый экран: фон — фото мха с грибами в сосновом лесу */
@@ -655,8 +656,8 @@
           <div class="card-inner">
             <div class="card-photo gallery" role="group" aria-roledescription="карусель" aria-label="Фото: столовые свечи, 2 шт.">
               <div class="gallery-track" tabindex="0">
-                <img src="images/stolovye-svechi.jpg" width="825" height="1100" loading="lazy" alt="Пять длинных столовых свечей из воска лежат крест-накрест на снегу">
                 <img src="images/svechi-v-lesu.jpg" width="749" height="1000" loading="lazy" alt="Три тонкие столовые свечи из воска стоят в снегу у ствола дерева в зимнем лесу">
+                <img src="images/stolovye-svechi.jpg" width="825" height="1100" loading="lazy" alt="Пять длинных столовых свечей из воска лежат крест-накрест на снегу">
               </div>
               <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
               <button type="button" class="gallery-btn next" aria-label="Следующее фото">›</button>
@@ -713,13 +714,7 @@
 
   <!-- 3. О воске и пасеке -->
   <section class="wax-photo-bg" id="wax" aria-labelledby="wax-title">
-    <div class="wrap split">
-      <div class="framed dotted-frame">
-        <div class="ph">
-          <img src="images/svechi-v-lesu.jpg" width="749" height="1000" loading="lazy"
-               alt="Три тонкие свечи из пчелиного воска стоят в снегу у ствола дерева в зимнем лесу">
-        </div>
-      </div>
+    <div class="wrap wax-text">
       <div>
         <span class="eyebrow caps">О воске и пасеке</span>
         <h2 id="wax-title">Воск, который помнит лес</h2>
