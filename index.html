@@ -237,6 +237,29 @@
   }
   .card-photo { aspect-ratio: 4 / 5; overflow: hidden; background: var(--bark); }
   .card-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+  /* Перелистывание фото в карточке: свайп пальцем или стрелки */
+  .gallery { position: relative; }
+  .gallery-track {
+    display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+  }
+  .gallery-track::-webkit-scrollbar { display: none; }
+  .gallery-track img { flex: 0 0 100%; scroll-snap-align: start; }
+  .gallery-track:focus-visible { outline: 3px solid var(--honey); outline-offset: -3px; }
+  .gallery-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer;
+    background: rgba(16,22,20,.6); color: var(--on-dark); font-size: 1.5rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center; padding: 0 0 3px;
+    transition: background-color .2s, opacity .2s;
+  }
+  .gallery-btn:hover { background: rgba(16,22,20,.85); }
+  .gallery-btn:focus-visible { outline: 3px solid var(--honey); outline-offset: 2px; }
+  .gallery-btn.prev { left: 8px; } .gallery-btn.next { right: 8px; }
+  .gallery-btn[disabled] { opacity: 0; pointer-events: none; }
+  .gallery-dots { position: absolute; left: 0; right: 0; bottom: 10px; z-index: 2; display: flex; justify-content: center; gap: 6px; }
+  .gallery-dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(243,239,227,.45); box-shadow: 0 0 2px rgba(0,0,0,.6); transition: background-color .2s, transform .2s; }
+  .gallery-dots span.active { background: var(--on-dark); transform: scale(1.25); }
   .card:hover .card-photo img { transform: scale(1.04); }
   .card-body { padding: 22px 22px 20px; display: flex; flex-direction: column; flex: 1; }
   .card-body h3 { margin-bottom: .3em; }
@@ -461,7 +484,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    html { scroll-behavior: auto; }
+    html, .gallery-track { scroll-behavior: auto; }
   }
 
   /* Баннер согласия на cookie */
@@ -568,9 +591,15 @@
       <div class="cards">
         <article class="card">
           <div class="card-inner">
-            <div class="card-photo">
-              <img src="images/katanye-svechi.jpg" width="753" height="1000" loading="lazy"
-                   alt="Четыре катаные свечи с узором из веточек лежат рядом с корзинкой камней">
+            <div class="card-photo gallery" role="group" aria-roledescription="карусель" aria-label="Фото: катаные свечи, 3 шт.">
+              <div class="gallery-track" tabindex="0">
+                <img src="images/katanye-svechi.jpg" width="753" height="1000" loading="lazy" alt="Четыре катаные свечи с узором из веточек лежат рядом с корзинкой камней">
+                <img src="images/katanye-svechi-2.jpg" width="596" height="1000" loading="lazy" alt="Семь катаных свечей бордового цвета с золотистыми крапинками на светлом столе">
+                <img src="images/sneg-svecha.jpg" width="960" height="1280" loading="lazy" alt="Горящая катаная свеча стоит в снегу под заснеженной веткой в зимнем лесу">
+              </div>
+              <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
+              <button type="button" class="gallery-btn next" aria-label="Следующее фото">›</button>
+              <div class="gallery-dots" aria-hidden="true"><span></span><span></span><span></span></div>
             </div>
             <div class="card-body">
               <h3>Катаные</h3>
@@ -586,9 +615,14 @@
 
         <article class="card">
           <div class="card-inner">
-            <div class="card-photo">
-              <img src="images/makanye-svechi.jpg" width="981" height="1000" loading="lazy"
-                   alt="Восемь маканых свечей медового цвета с закрученными фитилями на тёмном камне">
+            <div class="card-photo gallery" role="group" aria-roledescription="карусель" aria-label="Фото: маканые свечи, 2 шт.">
+              <div class="gallery-track" tabindex="0">
+                <img src="images/makanye-svechi.jpg" width="981" height="1000" loading="lazy" alt="Восемь маканых свечей медового цвета с закрученными фитилями на тёмном камне">
+                <img src="images/makanye-svechi-2.jpg" width="780" height="1000" loading="lazy" alt="Связка тонких маканых свечей медового цвета на камне со мхом в лесу">
+              </div>
+              <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
+              <button type="button" class="gallery-btn next" aria-label="Следующее фото">›</button>
+              <div class="gallery-dots" aria-hidden="true"><span></span><span></span></div>
             </div>
             <div class="card-body">
               <h3>Маканые</h3>
@@ -604,9 +638,15 @@
 
         <article class="card">
           <div class="card-inner">
-            <div class="card-photo">
-              <img src="images/formovaya-svecha.jpg" width="1000" height="750" loading="lazy"
-                   alt="Горящая формовая свеча в виде сидящей женской фигуры среди веток и коры">
+            <div class="card-photo gallery" role="group" aria-roledescription="карусель" aria-label="Фото: формовые свечи, 3 шт.">
+              <div class="gallery-track" tabindex="0">
+                <img src="images/formovaya-svecha.jpg" width="1000" height="750" loading="lazy" alt="Горящая формовая свеча в виде сидящей женской фигуры среди веток и коры">
+                <img src="images/svecha-na-kore.jpg" width="825" height="1100" loading="lazy" alt="Формовая свеча в виде лика стоит на древесном грибе на стволе дерева">
+                <img src="images/formovye-svechi-3.jpg" width="750" height="1000" loading="lazy" alt="Зелёная формовая свеча из множества фигурок на подставке из плоских камней среди мха">
+              </div>
+              <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
+              <button type="button" class="gallery-btn next" aria-label="Следующее фото">›</button>
+              <div class="gallery-dots" aria-hidden="true"><span></span><span></span><span></span></div>
             </div>
             <div class="card-body">
               <h3>Формовые</h3>
@@ -622,9 +662,14 @@
 
         <article class="card">
           <div class="card-inner">
-            <div class="card-photo">
-              <img src="images/stolovye-svechi.jpg" width="825" height="1100" loading="lazy"
-                   alt="Пять длинных столовых свечей из воска лежат крест-накрест на снегу">
+            <div class="card-photo gallery" role="group" aria-roledescription="карусель" aria-label="Фото: столовые свечи, 2 шт.">
+              <div class="gallery-track" tabindex="0">
+                <img src="images/stolovye-svechi.jpg" width="825" height="1100" loading="lazy" alt="Пять длинных столовых свечей из воска лежат крест-накрест на снегу">
+                <img src="images/svechi-v-lesu.jpg" width="749" height="1000" loading="lazy" alt="Три тонкие столовые свечи из воска стоят в снегу у ствола дерева в зимнем лесу">
+              </div>
+              <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
+              <button type="button" class="gallery-btn next" aria-label="Следующее фото">›</button>
+              <div class="gallery-dots" aria-hidden="true"><span></span><span></span></div>
             </div>
             <div class="card-body">
               <h3>Столовые</h3>
@@ -639,9 +684,14 @@
 
         <article class="card">
           <div class="card-inner">
-            <div class="card-photo">
-              <img src="images/svechi-s-travami.jpg" width="1000" height="750" loading="lazy"
-                   alt="Конусные свечи, покрытые сухими лепестками и травами, на золотом подносе">
+            <div class="card-photo gallery" role="group" aria-roledescription="карусель" aria-label="Фото: с травами свечи, 2 шт.">
+              <div class="gallery-track" tabindex="0">
+                <img src="images/svechi-s-travami.jpg" width="1000" height="750" loading="lazy" alt="Конусные свечи, покрытые сухими лепестками и травами, на золотом подносе">
+                <img src="images/svechi-s-travami-polyn.jpg" width="563" height="1000" loading="lazy" alt="Свечи, обсыпанные сушёными травами, рядом с чашей сухих трав">
+              </div>
+              <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
+              <button type="button" class="gallery-btn next" aria-label="Следующее фото">›</button>
+              <div class="gallery-dots" aria-hidden="true"><span></span><span></span></div>
             </div>
             <div class="card-body">
               <h3>С травами</h3>
@@ -853,6 +903,30 @@
     <button type="button" class="btn btn-honey" id="cookie-accept">Принять</button>
   </div>
 </div>
+
+<script>
+// Перелистывание фото в карточках свечей
+document.querySelectorAll('.gallery').forEach(function (g) {
+  var track = g.querySelector('.gallery-track');
+  var prev = g.querySelector('.prev'), next = g.querySelector('.next');
+  var dots = g.querySelectorAll('.gallery-dots span');
+  function index() { return Math.round(track.scrollLeft / track.clientWidth); }
+  function update() {
+    var i = index();
+    dots.forEach(function (d, k) { d.classList.toggle('active', k === i); });
+    prev.disabled = i <= 0;
+    next.disabled = i >= dots.length - 1;
+  }
+  prev.addEventListener('click', function () { track.scrollBy({ left: -track.clientWidth }); });
+  next.addEventListener('click', function () { track.scrollBy({ left: track.clientWidth }); });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+  });
+  track.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
+  update();
+});
+</script>
 
 <script>
 (function () {
