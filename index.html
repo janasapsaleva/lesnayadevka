@@ -194,11 +194,10 @@
   }
   .hero-facts li::before { content: "✦ "; color: var(--honey); }
   .hero-photo {
-    aspect-ratio: 3 / 4; padding: 5px;
-    border: 18px solid transparent; border-image: var(--twigs) 20 round;
+    aspect-ratio: 3 / 4; border-radius: 14px; overflow: hidden;
     box-shadow: 0 30px 60px rgba(0,0,0,.45);
   }
-  .hero-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
   @keyframes flicker {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: .82; transform: scale(1.04); }
