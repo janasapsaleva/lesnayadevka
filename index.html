@@ -250,6 +250,18 @@
 
   /* О воске */
   .split { display: grid; grid-template-columns: .9fr 1.1fr; gap: 60px; align-items: center; }
+
+  /* «О воске и пасеке»: фон — фото леса в тумане, затемнённое для читаемости текста */
+  .wax-photo-bg {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(90deg, rgba(11,18,13,.15) 0%, rgba(11,18,13,.45) 45%, rgba(11,18,13,.78) 100%),
+      linear-gradient(180deg, rgba(11,18,13,.5) 0%, transparent 18%, transparent 82%, rgba(11,18,13,.55) 100%),
+      url("images/les-v-tumane.jpg");
+    background-size: cover;
+    background-position: center 58%;
+  }
+  .wax-photo-bg .note { background: rgba(37,61,48,.85); }
   .framed {
     border-radius: 14px; padding: 8px;
     background-image: var(--noise), var(--bark-wild), linear-gradient(var(--bark-light), var(--bark));
@@ -337,6 +349,11 @@
     .gifts { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 860px) {
+    .wax-photo-bg {
+      background-image:
+        linear-gradient(180deg, rgba(11,18,13,.55) 0%, rgba(11,18,13,.78) 40%, rgba(11,18,13,.9) 100%),
+        url("images/les-v-tumane.jpg");
+    }
     body { font-size: 16px; }
     .site-header .wrap { flex-wrap: wrap; min-height: 0; padding-top: 10px; padding-bottom: 0; gap: 8px 16px; }
     .nav {
@@ -608,7 +625,7 @@
   </div>
 
   <!-- 3. О воске и пасеке -->
-  <section id="wax" aria-labelledby="wax-title">
+  <section class="wax-photo-bg" id="wax" aria-labelledby="wax-title">
     <div class="wrap split">
       <div class="framed">
         <div class="ph">
