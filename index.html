@@ -92,6 +92,17 @@
       linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 55%, #141d1a 100%);
     color: var(--on-dark);
   }
+  /* Каталог: оливково-зелёный «мох» в цвет фона первого экрана */
+  .moss-bg {
+    background-color: #2a3214;
+    background-image:
+      radial-gradient(circle at 16% 24%, rgba(239,192,122,.22), transparent 36%),
+      radial-gradient(circle at 88% 78%, rgba(170,190,90,.20), transparent 40%),
+      radial-gradient(ellipse 55% 35% at 62% 0%, rgba(255,232,180,.08), transparent 70%),
+      linear-gradient(160deg, #4d5a22 0%, #2f3816 55%, #1a1f0e 100%);
+    color: var(--on-dark);
+  }
+  .moss-bg .card-inner, .moss-bg .catalog-note { background: rgba(26,31,14,.92); }
   .bark {
     background-color: var(--bark);
     background-image:
@@ -529,7 +540,7 @@
   </section>
 
   <!-- 2. Каталог -->
-  <section class="bark-forest glow" id="catalog" aria-labelledby="catalog-title">
+  <section class="moss-bg glow" id="catalog" aria-labelledby="catalog-title">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow caps">Наши свечи</span>
