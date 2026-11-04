@@ -262,6 +262,17 @@
     background-position: center 58%;
   }
   .wax-photo-bg .note { background: rgba(38,51,47,.85); }
+
+  /* Первый экран: фон — фото мха с грибами в сосновом лесу */
+  .hero-photo-bg {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(90deg, rgba(16,22,20,.86) 0%, rgba(16,22,20,.5) 48%, rgba(16,22,20,.22) 100%),
+      linear-gradient(180deg, rgba(16,22,20,.45) 0%, transparent 25%, transparent 75%, rgba(16,22,20,.7) 100%),
+      url("images/moh-i-griby.jpg");
+    background-size: cover;
+    background-position: center 52%;
+  }
   .framed {
     border-radius: 14px; padding: 8px;
     background-image: var(--noise), var(--bark-wild), linear-gradient(var(--bark-light), var(--bark));
@@ -351,6 +362,12 @@
     .gifts { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 860px) {
+    .hero-photo-bg {
+      background-image:
+        linear-gradient(180deg, rgba(16,22,20,.6) 0%, rgba(16,22,20,.75) 50%, rgba(16,22,20,.88) 100%),
+        url("images/moh-i-griby.jpg");
+      background-position: center 55%;
+    }
     .wax-photo-bg {
       background-image:
         linear-gradient(180deg, rgba(16,22,20,.55) 0%, rgba(16,22,20,.78) 40%, rgba(16,22,20,.9) 100%),
@@ -486,7 +503,7 @@
 <main id="main">
 
   <!-- 1. Первый экран -->
-  <section class="hero sage" id="top" aria-labelledby="hero-title">
+  <section class="hero hero-photo-bg" id="top" aria-labelledby="hero-title">
     <div class="wrap">
       <div class="hero-text">
         <span class="eyebrow caps">Свечная лавка ручной работы</span>
