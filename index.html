@@ -241,6 +241,7 @@
   }
   .gallery-track::-webkit-scrollbar { display: none; }
   .gallery-track img { flex: 0 0 100%; scroll-snap-align: start; }
+  .gallery-track img.pos-top { object-position: center top; }
   .gallery-track:focus-visible { outline: 3px solid var(--honey); outline-offset: -3px; }
   .gallery-btn {
     position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
@@ -609,7 +610,7 @@
                 <img src="images/katanye-svechi-6.jpg" width="592" height="1000" loading="lazy" alt="Две маленькие тёмные катаные свечи с еловой шишкой внутри на ладони">
                 <img src="images/katanye-belaya-babochka.jpg" width="567" height="1000" loading="lazy" alt="Катаная свеча медового цвета с бусинками по краям и белым крылом бабочки рядом со стеклянной вазочкой">
                 <img src="images/katanye-s-koroy-i-cvetami.jpg" width="760" height="1000" loading="lazy" alt="Катаные свечи медового цвета с кусочками коры, лишайником и сухими цветами на узорном подносе">
-                <img src="images/katanye-temnye.jpg" width="569" height="1000" loading="lazy" alt="Пять тёмных катаных свечей с закрученными красными фитилями на шершавом камне">
+                <img class="pos-top" src="images/katanye-temnye.jpg" width="569" height="1000" loading="lazy" alt="Пять тёмных катаных свечей с закрученными красными фитилями на шершавом камне">
               </div>
               <button type="button" class="gallery-btn prev" aria-label="Предыдущее фото">‹</button>
               <button type="button" class="gallery-btn next" aria-label="Следующее фото">›</button>
